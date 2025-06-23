@@ -1,86 +1,127 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="{{ asset('css/style.css')}}">
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jukebox</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#151515] flex flex-col min-h-full">
+
+  <!-- Navbar -->
+  @include('nav')
 
 
-    @include('nav')
-  <main class="max-w-7xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-4">Onze producten</h2>
+  <main class="flex-grow">
 
-    <!-- Horizontaal scrollbare rij -->
-    <div class="flex overflow-x-auto space-x-4 pb-4">
+<div class="w-[70%] mx-auto mt-10">
+  <!-- Genre Selectie -->
+  <div class="bg-[#111111] text-white border border-[#04fffb] rounded-lg p-6 shadow-lg">
+    <h2 class="text-xl font-semibold mb-4">Kies een muziekgenre</h2>
+
+    <label for="genre" class="block mb-2">Genre:</label>
+    <select id="genre" name="genre"
+      class="w-full bg-[#111111] text-white border border-[#04fffb] rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#04fffb] mb-6">
+      <option value="">Alle genres</option>
+      <option value="pop">Pop</option>
+      <option value="rock">Rock</option>
+      <option value="hiphop">Hip-Hop</option>
+      <option value="jazz">Jazz</option>
+      <option value="klassiek">Klassiek</option>
+    </select>
+
+    <!-- Muziek Secties in Grid -->
+
+
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Liedje 1 -->
+      <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-semibold">Blinding Lights</h3>
+          <p class="text-sm text-gray-300">Duur: 3:50 · Genre: Pop</p>
+        </div>
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+      </div>
+
+      <!-- Liedje 2 -->
+      <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-semibold">Lose Yourself</h3>
+          <p class="text-sm text-gray-300">Duur: 5:26 · Genre: Hip-Hop</p>
+        </div>
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+      </div>
+
+      <!-- Liedje 3 -->
+      <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
+          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
+        </div>
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+      </div>
+
+
+        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
+          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
+        </div>
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+      </div>
+
+
+
+        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
+          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
+        </div>
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+      </div>
+
+
+
+
+        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
+          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
+        </div>
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+      </div>
+
+
+
+
+        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
+          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
+        </div>
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+      </div>
+
+
       
-      <!-- 20 producten naast elkaar -->
-      <!-- Gebruik shrink-0 zodat ze niet krimpen in de flex-row -->
-      <!-- Gebruik min-w-[200px] of een vaste breedte -->
-      <!-- Kopieer dit blok 20 keer -->
-      <div class="shrink-0 min-w-[200px] bg-white rounded-lg shadow hover:shadow-lg transition">
-        <img src="https://via.placeholder.com/200x120" alt="Product foto" class="w-full h-32 object-cover rounded-t-lg">
-        <div class="p-4">
-          <h3 class="text-md font-semibold text-gray-800">Productnaam</h3>
-          <p class="text-sm text-gray-500">Tijd: 14:00 - 16:00</p>
-          <p class="text-green-600 font-bold mt-1">€29,95</p>
-        </div>
-      </div>
 
-      <!-- herhaal 19x -->
-      <div class="shrink-0 min-w-[200px] bg-white rounded-lg shadow hover:shadow-lg transition">
-        <img src="https://via.placeholder.com/200x120" alt="Product foto" class="w-full h-32 object-cover rounded-t-lg">
-        <div class="p-4">
-          <h3 class="text-md font-semibold text-gray-800">Productnaam</h3>
-          <p class="text-sm text-gray-500">Tijd: 15:00 - 17:00</p>
-          <p class="text-green-600 font-bold mt-1">€34,99</p>
-        </div>
-      </div>
-
-      <!-- ... voeg nog 18 extra kaarten toe ... -->
-
+      <!-- Voeg meer liedjes toe als je wilt -->
     </div>
-  </main>
+  </div>
+</div>
+
+</main>
 
 
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-4">Onze producten</h2>
+<!-- Footer -->
+@include('footer')
 
-    <!-- Horizontaal scrollbare rij -->
-    <div class="flex overflow-x-auto space-x-4 pb-4">
-      
-      <!-- 20 producten naast elkaar -->
-      <!-- Gebruik shrink-0 zodat ze niet krimpen in de flex-row -->
-      <!-- Gebruik min-w-[200px] of een vaste breedte -->
-      <!-- Kopieer dit blok 20 keer -->
-      <div class="shrink-0 min-w-[200px] bg-white rounded-lg shadow hover:shadow-lg transition">
-        <img src="https://via.placeholder.com/200x120" alt="Product foto" class="w-full h-32 object-cover rounded-t-lg">
-        <div class="p-4">
-          <h3 class="text-md font-semibold text-gray-800">Productnaam</h3>
-          <p class="text-sm text-gray-500">Tijd: 14:00 - 16:00</p>
-          <p class="text-green-600 font-bold mt-1">€29,95</p>
-        </div>
-      </div>
 
-      <!-- herhaal 19x -->
-      <div class="shrink-0 min-w-[200px] bg-white rounded-lg shadow hover:shadow-lg transition">
-        <img src="https://via.placeholder.com/200x120" alt="Product foto" class="w-full h-32 object-cover rounded-t-lg">
-        <div class="p-4">
-          <h3 class="text-md font-semibold text-gray-800">Productnaam</h3>
-          <p class="text-sm text-gray-500">Tijd: 15:00 - 17:00</p>
-          <p class="text-green-600 font-bold mt-1">€34,99</p>
-        </div>
-      </div>
 
-      <!-- ... voeg nog 18 extra kaarten toe ... -->
 
-    </div>
-  </main>
 
-  @include('footer')
-    <script src="{{ asset('js/main.js')}}"></script>
+
 </body>
 </html>

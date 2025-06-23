@@ -1,3 +1,3 @@
-  <footer class="bg-gray-800 text-white text-center py-4 mt-10">
-  <p>&copy; <span id="jaar"></span> Osama Mohti. Alle rechten voorbehouden.</p>
+<footer class="bg-[#111111] text-white text-center py-4">
+    <p class="text-sm">© Jukebox 2025</p>
 </footer>
