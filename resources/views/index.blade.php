@@ -23,11 +23,22 @@
     <select id="genre" name="genre"
       class="w-full bg-[#111111] text-white border border-[#04fffb] rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#04fffb] mb-6">
       <option value="">Alle genres</option>
-      <option value="pop">Pop</option>
+      @foreach ($genres as $genre ){
+
+          <option value="{{ $genre->genre }}">{{ $genre->genre }}</option>
+      }
+        
+      @endforeach
+
+
+
+
+
+      {{-- <option value="pop">Pop</option>
       <option value="rock">Rock</option>
       <option value="hiphop">Hip-Hop</option>
       <option value="jazz">Jazz</option>
-      <option value="klassiek">Klassiek</option>
+      <option value="klassiek">Klassiek</option> --}}
     </select>
 
     <!-- Muziek Secties in Grid -->

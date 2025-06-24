@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class GenreController extends Controller
 {
@@ -36,9 +37,9 @@ class GenreController extends Controller
      */
     public function show(Genre $genre)
     {
-        //
+        
+        // return view("genres.show", compact( 'genre'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */

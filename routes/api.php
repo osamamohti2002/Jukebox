@@ -8,4 +8,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/index{genre_id}', GenreController::class . '@getSongsOnGenre');
+
+// Route::get('genres/show', GenreController::class . '@show');

@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', function(){
     return view('login');
@@ -18,3 +18,7 @@ Route::get('/registreer', function(){
 Route::get('/profile', function(){
     return view('profile');
 });
+
+
+Route::resource('genres', GenreController::class);
+
