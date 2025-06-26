@@ -34,9 +34,10 @@ class SongController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Song $songs)
+    public function show($id)
     {
-        //
+        $song = Song::findOrFail($id);
+        return view('songs.detail', compact('song'));
     }
 
     /**

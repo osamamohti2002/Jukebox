@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-</head>
-<body>
-    @include('nav')
-        <main class="flex-grow">
-        <div class="flex items-center justify-center min-h-screen bg-[#151515]">
+@extends('layouts.app')
+
+@section('content')
+
+  <div class="flex items-center justify-center min-h-screen bg-[#151515]">
   <div class="bg-[#111111] text-white p-8 rounded-lg shadow-lg w-full max-w-sm border border-[#04fffb]">
     <h2 class="text-2xl font-bold mb-6 text-center">Inloggen</h2>
 
@@ -51,7 +43,5 @@
 </div>
 
 
-    </main>
-    @include('footer')
-</body>
-</html>
+
+@endsection

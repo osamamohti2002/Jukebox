@@ -1,28 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" class="h-full">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jukebox</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#151515] flex flex-col min-h-full">
+@extends('layouts.app')
 
-  <!-- Navbar -->
-<nav class="bg-[#111111] text-white px-6 py-4 flex justify-between items-center">
-  <!-- Titel -->
-    <a href="index.html" class="hover:text-[#04fffb]"><h1 class="text-2xl font-bold border-b-2 border-[#04fffb] inline-block">Juke<span class="text-[#04fffb] hover:text-white">box</span></h1></a>
-
-  <!-- Alleen Log out knop -->
-  <div>
-    <a href="#" class="hover:text-[#04fffb]">Log out</a>
-  </div>
-</nav>
-
-
-
-  <main class="flex-grow">
-    <div class="flex min-h-screen bg-[#151515] text-white">
+@section('content')
+<div class="flex min-h-screen bg-[#151515] text-white">
   <!-- Sidebar -->
 <aside class="w-1/4 bg-[#111111] p-6 border-r border-[#04fffb]">
   <div class="flex items-center justify-between mb-4">
@@ -68,23 +47,10 @@
 
     
 
-  </main>
+</main>
 </div>
 
 
-  </main>
 
-
-
-<!-- Footer -->
-<footer class="bg-[#111111] text-white text-center py-4">
-    <p class="text-sm">© Jukebox 2025</p>
-</footer>
-
-
-
-
-
-
-</body>
-</html>
+  
+@endsection
