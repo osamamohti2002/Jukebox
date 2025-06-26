@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Songs extends Model
+class Song extends Model
 {
-    /** @use HasFactory<\Database\Factories\SongsFactory> */
+    /** @use HasFactory<\Database\Factories\SongFactory> */
     use HasFactory;
 }
