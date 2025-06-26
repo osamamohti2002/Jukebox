@@ -18,18 +18,19 @@
   <!-- Genre Selectie -->
   <div class="bg-[#111111] text-white border border-[#04fffb] rounded-lg p-6 shadow-lg">
     <h2 class="text-xl font-semibold mb-4">Kies een muziekgenre</h2>
-
+    <form action="{{ route('home')}}">
     <label for="genre" class="block mb-2">Genre:</label>
-    <select id="genre" name="genre"
+    <select id="genre" name="genre" name="genre" onchange="this.form.submit()"
       class="w-full bg-[#111111] text-white border border-[#04fffb] rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#04fffb] mb-6">
       <option value="">Alle genres</option>
       @foreach ($genres as $genre ){
 
-          <option value="{{ $genre->genre }}">{{ $genre->genre }}</option>
+          <option value="{{ $genre->genre }}" {{ request('genre') == $genre->genre ? 'selected' : ''}} >{{ $genre->genre }}</option>
       }
         
       @endforeach
     </select>
+    </form>
 
     <!-- Muziek Secties in Grid -->
 
