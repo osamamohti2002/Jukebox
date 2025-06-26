@@ -20,8 +20,12 @@ class SongFactory extends Factory
     {
         return [
             'song' => fake()->word(),
+            'artiest' => fake()->name(),
+            'description' => fake()->sentence(10, true),
+            'song_image' => 'foto1',
             'genre' => Genre::inRandomOrder()->first()->genre,
             'duration' => fake()->numberBetween(60, 600)
+
         ];
     }
 }
