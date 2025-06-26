@@ -1,10 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-  
-<div class="flex items-center justify-center min-h-screen bg-[#151515]">
+
+    <div class="flex items-center justify-center min-h-screen bg-[#151515]">
   <div class="bg-[#111111] text-white p-8 rounded-lg shadow-lg w-full max-w-sm border border-[#04fffb]">
-    <h2 class="text-2xl font-bold mb-6 text-center">Inloggen</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center">Registreren</h2>
+
+    <!-- Naam -->
+    <form method="POST" action="{{ route('register')}}">
+      @csrf
+    <div class="mb-4">
+      <label for="name" class="block mb-2">Naam</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="w-full px-4 py-2 rounded bg-[#151515] border border-[#04fffb] text-white focus:outline-none focus:ring-2 focus:ring-[#04fffb]"
+        placeholder="Jouw naam"
+        required
+      />
+    </div>
 
     <!-- E-mail -->
     <div class="mb-4">
@@ -32,15 +47,17 @@
       />
     </div>
 
-    <!-- Login knop -->
+    <!-- Registreren knop -->
     <button
       type="submit"
       class="w-full bg-[#04fffb] text-black font-semibold py-2 rounded hover:bg-[#03dad8] transition"
     >
-      Inloggen
+      Registreren
     </button>
+    </form>
   </div>
 </div>
 
 
+  
 @endsection

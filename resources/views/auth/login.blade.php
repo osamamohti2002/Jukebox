@@ -6,6 +6,10 @@
   <div class="bg-[#111111] text-white p-8 rounded-lg shadow-lg w-full max-w-sm border border-[#04fffb]">
     <h2 class="text-2xl font-bold mb-6 text-center">Inloggen</h2>
 
+
+
+    <form method="POST" action="{{ route('login.submit')}}">
+      @csrf
     <!-- E-mail -->
     <div class="mb-4">
       <label for="email" class="block mb-2">E-mailadres</label>
@@ -39,6 +43,7 @@
     >
       Inloggen
     </button>
+    </form>
   </div>
 </div>
 
