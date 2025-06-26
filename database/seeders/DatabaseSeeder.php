@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call([
-            GenreSeeder::class,
-            SongSeeder::class,
+            // GenreSeeder::class,
+            // SongSeeder::class,
         ]);
     }
 }

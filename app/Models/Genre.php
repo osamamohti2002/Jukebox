@@ -9,4 +9,8 @@ class Genre extends Model
 {
     /** @use HasFactory<\Database\Factories\GenreFactory> */
     use HasFactory;
+
+        protected $fillable = [
+            'genre',
+        ];
 }

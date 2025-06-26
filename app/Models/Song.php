@@ -9,4 +9,12 @@ class Song extends Model
 {
     /** @use HasFactory<\Database\Factories\SongFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'song',
+        'artiest',
+        'description',
+        'song_image',
+        'genre',
+        ];
 }
