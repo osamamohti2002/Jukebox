@@ -21,6 +21,7 @@ class SongFactory extends Factory
         return [
             'song' => fake()->word(),
             'genre' => Genre::inRandomOrder()->first()->genre,
+            'duration' => fake()->numberBetween(60, 600)
         ];
     }
 }

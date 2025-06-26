@@ -29,16 +29,6 @@
       }
         
       @endforeach
-
-
-
-
-
-      {{-- <option value="pop">Pop</option>
-      <option value="rock">Rock</option>
-      <option value="hiphop">Hip-Hop</option>
-      <option value="jazz">Jazz</option>
-      <option value="klassiek">Klassiek</option> --}}
     </select>
 
     <!-- Muziek Secties in Grid -->
@@ -47,76 +37,24 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <!-- Liedje 1 -->
-      <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="text-lg font-semibold">Blinding Lights</h3>
-          <p class="text-sm text-gray-300">Duur: 3:50 · Genre: Pop</p>
-        </div>
-        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-      </div>
-
-      <!-- Liedje 2 -->
-      <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="text-lg font-semibold">Lose Yourself</h3>
-          <p class="text-sm text-gray-300">Duur: 5:26 · Genre: Hip-Hop</p>
-        </div>
-        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-      </div>
-
-      <!-- Liedje 3 -->
-      <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
-          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
-        </div>
-        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-      </div>
-
-
-        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
-          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
-        </div>
-        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-      </div>
-
-
-
-        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
-          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
-        </div>
-        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-      </div>
-
-
-
-
-        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
-          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
-        </div>
-        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-      </div>
-
-
-
-
-        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="text-lg font-semibold">Bohemian Rhapsody</h3>
-          <p class="text-sm text-gray-300">Duur: 6:00 · Genre: Rock</p>
-        </div>
-        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-      </div>
-
-
       
+      @foreach ($songs as $song)
+        @php
 
+        $minutes = floor($song->duration / 60);
+        $seconds = str_pad($song->duration % 60, 2, '0', STR_PAD_LEFT);
+        @endphp
+        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-semibold">{{ $song->song }}</h3>
+            <p class="text-sm text-gray-300">Duur: {{ $minutes }}:{{ $seconds }}· Genre: {{ $song->genre }}</p>
+          </div>
+          <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+        </div>
+      @endforeach
+
+
+    
       <!-- Voeg meer liedjes toe als je wilt -->
     </div>
   </div>

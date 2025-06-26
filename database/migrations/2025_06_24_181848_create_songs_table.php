@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('song');
             $table->string('genre');
+            $table->integer('duration');
             $table->timestamps();
         });
     }
