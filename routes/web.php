@@ -16,21 +16,16 @@ Route::get('/songs/{id}', [SongController::class, 'show']);
 Route::get('/login', [UserController::class, 'showLogInForm'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login.submit');
 
-
+Route::post('/logout', [UserController::class, 'login'])->name('logout');
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register.form');
 
 // Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [UserController::class, 'register'])->name('register');
 
 
-Route::get('/profiel', [UserController::class, 'profiel'])
+Route::get('/profile', [UserController::class, 'profile'])
     ->Middleware('auth')
-    ->name('profiel');
-
-
-Route::get('/profile', function(){
-    return view('profile');
-})->name('profile');
+    ->name('profile');
 
 
 Route::resource('genres', GenreController::class);

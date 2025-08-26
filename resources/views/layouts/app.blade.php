@@ -9,22 +9,19 @@
 <body class="bg-[#151515] flex flex-col min-h-full">
 
   <!-- Navbar -->
-  <nav class="bg-[#111111] text-white px-6 py-4 flex justify-between items-center">
-    <!-- Titel links -->
-    <a href="{{ route('home')}}" class="hover:text-[#04fffb]"><h1 class="text-2xl font-bold border-b-2 border-[#04fffb] inline-block">Juke<span class="text-[#04fffb] hover:text-white">box</span></h1></a>
+  @guest
+      @include('layouts.nav-bars.mainNavBar')
+  @endguest
 
-    <!-- Rechterkant: links -->
-    <div class="space-x-4">
-      <a href="{{ route('login') }}" class="hover:text-[#04fffb]">Login</a>
-      <a href="{{ route('register')}}" class="hover:text-[#04fffb]">Registreren</a>
-    </div>
-  </nav>
+
+  @auth
+    @include('layouts.nav-bars.userNavBar')
+  @endauth
+
 
   <main class="flex-grow">
     @yield('content')
   </main>
-
-
 
 <!-- Footer -->
 <footer class="bg-[#111111] text-white text-center py-4">

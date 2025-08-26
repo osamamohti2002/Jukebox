@@ -11,7 +11,6 @@ use function PHPUnit\Framework\isReadable;
 
 class UserController extends Controller
 {
-    
 
 
     public function showLogInForm(){
@@ -23,7 +22,7 @@ class UserController extends Controller
     }
 
 
-    public function profiel(){
+    public function profile(){
         return view('user.profile'); // of een ander pad naar jouw profiel-view
     }
 
@@ -45,7 +44,7 @@ class UserController extends Controller
 
         Auth::login($newUser); // correct als helper
 
-        return redirect()->route('profiel');
+        return redirect()->route('profile')->with('success', 'Welkom ' . $newUser->name . '!');
     }
 
 
@@ -68,4 +67,10 @@ class UserController extends Controller
         Auth::login($user);
         return redirect()->route('profile')->with('success', 'welkom terug ' . $user->name);
     }
+
+
+    public function logout(){
+        return;
+    }
+
 }
