@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SongController;
@@ -13,14 +16,15 @@ Route::get('/songs/{id}', [SongController::class, 'show']);
 
 
 
-Route::get('/login', [UserController::class, 'showLogInForm'])->name('login');
-Route::post('/login', [UserController::class, 'login'])->name('login.submit');
+Route::get('/login', [LoginController::class, 'showLogInForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
-Route::post('/logout', [UserController::class, 'login'])->name('logout');
-Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register.form');
-
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
 // Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register.form');
-Route::post('/register', [UserController::class, 'register'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 
 Route::get('/profile', [UserController::class, 'profile'])

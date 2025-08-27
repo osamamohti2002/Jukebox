@@ -4,6 +4,9 @@
 
     <!-- Rechterkant: links -->
     <div class="space-x-4">
-      <a href="{{ route('logout') }}" class="hover:text-[#04fffb]">log uit</a>
+      <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="hover:text-[#04fffb]">Log uit</button>
+      </form>
     </div>
   </nav>
