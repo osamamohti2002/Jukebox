@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/songs/{id}', [SongController::class, 'show']);
 
-
+Route::get('/genre1', function(){
+    return view('genres.show');
+});
 
 
 Route::get('/login', [LoginController::class, 'showLogInForm'])->name('login');
@@ -34,3 +36,10 @@ Route::get('/profile', [UserController::class, 'profile'])
 
 Route::resource('genres', GenreController::class);
 
+Route::get('/temporaryplaylist', function(){
+    return view('playlist.temporaryPlaylist');
+})->name('temporary_playlist');
+
+Route::get('/add_song', function(){
+    return view('songs.allSongs');
+});

@@ -6,5 +6,6 @@
     <div class="space-x-4">
       <a href="{{ route('login') }}" class="hover:text-[#04fffb]">Login</a>
       <a href="{{ route('register')}}" class="hover:text-[#04fffb]">Registreren</a>
+      <a href="{{ route('temporary_playlist')}}" class="hover:text-[#04fffb]">Tijdelijke Playlist</a>
     </div>
   </nav>
