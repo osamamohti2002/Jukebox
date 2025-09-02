@@ -40,7 +40,9 @@
             <h3 class="text-lg font-semibold">{{ $song->song }}</h3>
             <p class="text-sm text-gray-300">Duur: {{ $minutes }}:{{ $seconds }}· Genre: {{ $song->genre }}</p>
           </div>
+          <form action="" method="post">
           <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
+          </form>
         </div>
         </a>
       @endforeach
