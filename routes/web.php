@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\TempPlaylistController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -36,10 +37,17 @@ Route::get('/profile', [UserController::class, 'profile'])
 
 Route::resource('genres', GenreController::class);
 
-Route::get('/temporaryplaylist', function(){
-    return view('playlist.temporaryPlaylist');
-})->name('temporary_playlist');
 
-Route::get('/add_song', function(){
-    return view('songs.allSongs');
-});
+
+// temp playlist Routs 
+
+Route::get('/playlist/temp', [TempPlaylistController::class, 'tempIndex'])->name('playlist.temp.index');
+
+Route::post('/playlist/temp/add/{song}', [TempPlaylistController::class, 'tempAdd'])
+    ->name('playlist.temp.add');
+
+Route::delete('/playlist/temp/remove/{song}', [TempPlaylistController::class, 'tempRemove'])->name('playlist.temp.remove');
+
+// Route::get('/add_song', function(){
+//     return view('songs.allSongs');
+// });

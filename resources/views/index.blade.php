@@ -34,17 +34,18 @@
         $minutes = floor($song->duration / 60);
         $seconds = str_pad($song->duration % 60, 2, '0', STR_PAD_LEFT);
         @endphp
+      <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
         <a href="/songs/{{ $song->id }}">
-        <div class="bg-[#151515] border border-[#04fffb] rounded p-4 flex flex-col justify-between">
           <div>
             <h3 class="text-lg font-semibold">{{ $song->song }}</h3>
             <p class="text-sm text-gray-300">Duur: {{ $minutes }}:{{ $seconds }}· Genre: {{ $song->genre }}</p>
           </div>
-          <form action="" method="post">
-          <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
-          </form>
-        </div>
         </a>
+        <form action="{{ route('playlist.temp.add', $song) }}" method="post">
+          @csrf
+        <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end" type="submit">+</button>
+        </form>
+      </div>
       @endforeach
 
 
