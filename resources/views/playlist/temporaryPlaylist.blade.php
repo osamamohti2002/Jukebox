@@ -1,19 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
-<pre class="text-xs">{{ json_encode(session('playlist.items')) }}</pre>
-
 <div class="w-[70%] mx-auto mt-10">
   <div class="bg-[#111111] text-white border border-[#04fffb] rounded-lg p-6 shadow-lg">
     <h1 class="text-2xl font-bold mb-4">Tijdelijke playlist</h1>
-
-    {{-- Flash messages --}}
-    @if(session('success'))
-      <div class="mb-4 border border-[#04fffb] rounded px-4 py-2 text-[#04fffb]">
-        {{ session('success') }}
-      </div>
-    @endif
 
     @if($songs->isEmpty())
       <p class="text-gray-400">Je tijdelijke playlist is leeg of verlopen.</p>

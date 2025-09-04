@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jukebox</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-[#151515] flex flex-col min-h-full">
 
@@ -20,7 +21,9 @@
 
 
   <main class="flex-grow">
+    @include('shared._flash')
     @yield('content')
+
   </main>
 
 <!-- Footer -->
