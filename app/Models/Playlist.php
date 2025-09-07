@@ -12,11 +12,18 @@ class Playlist extends Model
 
     protected $fillable = ['name', 'user_id'];
 
-    public function songs(){
-        return $this->belongsToMany(Song::class);
-    }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
+
+
+    public function songs()
+    {
+        return $this->belongsToMany(Song::class, 'playlist_song')
+        ->withTimestamps();
+    }
+
+
 }

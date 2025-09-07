@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Playlist;
+use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PlaylistController extends Controller
 {
@@ -20,7 +23,10 @@ class PlaylistController extends Controller
      */
     public function create()
     {
-        //
+        $tempIds = Session::get('playlist.items', []);
+        $tempSongs = Song::whereIn('id', $tempIds)->orderBy('song')->get();
+        $tempCount = $tempSongs->count();
+        return view('playlist.createPlaylist', compact('tempSongs', 'tempCount'));
     }
 
     /**
@@ -28,8 +34,29 @@ class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $data = $request->validate([
+            'name' => ['required',
+            'string',
+            'max:100']
+        ]);
+
+        $ids = Session::get('playlist.items', []);
+
+        if(empty($ids)){
+            return back()->with('error', 'je tijdelijke playlist is leeg');
+        }
+
+        $playlist = Playlist::create([
+            'user_id' => Auth::id(),
+            'name' => $data['name']
+        ]);
+
+        $playlist->songs()->sync($ids);
+
+        return redirect()->route('user.profile')
+        ->with('success', 'Playlist opgeslagen als "' . e($playlist->name) . '". ');
+    } 
+    // hier ben ik gestopt
 
     /**
      * Display the specified resource.

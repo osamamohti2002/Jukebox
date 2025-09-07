@@ -7,9 +7,9 @@
   <div class="flex items-center justify-between mb-4">
     <h2 class="text-xl font-bold">Jouw Lijsten</h2>
     <!-- Nieuwe lijst knop -->
-    <button class="bg-[#04fffb] text-black px-3 py-1 text-sm rounded hover:bg-[#03dad8] transition">
+    <a href="{{ route('playlists.create') }}" class="bg-[#04fffb] text-black px-3 py-1 text-sm rounded hover:bg-[#03dad8] transition">
       +
-    </button>
+    </a>
   </div>
 
   <ul class="space-y-3">

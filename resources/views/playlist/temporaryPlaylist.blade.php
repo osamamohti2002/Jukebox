@@ -5,6 +5,17 @@
   <div class="bg-[#111111] text-white border border-[#04fffb] rounded-lg p-6 shadow-lg">
     <h1 class="text-2xl font-bold mb-4">Tijdelijke playlist</h1>
 
+    {{-- opslaan-form (alleen NAAM + knop) --}}
+    <form action="{{ route('playlist.temp.save') }}" method="POST" class="mb-4">
+      @csrf
+      <label class="block mb-2">Naam</label>
+      <input type="text" name="name" value="{{ old('name') }}"
+             class="w-full bg-[#111111] text-white border border-[#04fffb] rounded px-4 py-2 mb-4">
+      @error('name') <p class="text-red-400 text-sm mb-2">{{ $message }}</p> @enderror
+
+      <button class="px-4 py-2 border border-[#04fffb] rounded">Opslaan</button>
+    </form>
+
     @if($songs->isEmpty())
       <p class="text-gray-400">Je tijdelijke playlist is leeg of verlopen.</p>
       <a href="{{ route('home') }}" class="inline-block mt-4 underline">Terug naar home</a>
@@ -24,6 +35,7 @@
               </p>
             </div>
 
+            {{-- Verwijder-form per item (aparte form, dus NIET genest in de opslaan-form) --}}
             <form action="{{ route('playlist.temp.remove', $song) }}" method="POST" class="mt-4 self-end">
               @csrf
               @method('DELETE')
@@ -37,7 +49,6 @@
         $totMin = floor($totalSeconds / 60);
         $totSec = str_pad($totalSeconds % 60, 2, '0', STR_PAD_LEFT);
       @endphp
-
       <div class="mt-2 text-sm text-gray-300">
         Totale duur: <span class="text-white font-semibold">{{ $totMin }}:{{ $totSec }}</span>
       </div>

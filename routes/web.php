@@ -5,9 +5,11 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\TempPlaylistController;
 use App\Http\Controllers\UserController;
+use App\Models\Playlist;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -46,8 +48,15 @@ Route::get('/playlist/temp', [TempPlaylistController::class, 'tempIndex'])->name
 Route::post('/playlist/temp/add/{song}', [TempPlaylistController::class, 'tempAdd'])
     ->name('playlist.temp.add');
 
+Route::post('/playlist/temp/save', [PlaylistController::class, 'store'])->name('playlist.temp.save');
+
 Route::delete('/playlist/temp/remove/{song}', [TempPlaylistController::class, 'tempRemove'])->name('playlist.temp.remove');
 
-// Route::get('/add_song', function(){
-//     return view('songs.allSongs');
-// });
+
+//playlsit routes
+
+Route::middleware('auth')->group(function(){
+    Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
+    Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
+    
+});
