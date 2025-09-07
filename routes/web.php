@@ -33,7 +33,7 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 
 Route::get('/profile', [UserController::class, 'profile'])
-    ->Middleware('auth')
+    ->middleware('auth')
     ->name('profile');
 
 
@@ -43,15 +43,19 @@ Route::resource('genres', GenreController::class);
 
 // temp playlist Routs 
 
-Route::get('/playlist/temp', [TempPlaylistController::class, 'tempIndex'])->name('playlist.temp.index');
-
+Route::get('/playlist/temp', [TempPlaylistController::class, 'tempIndex'])
+    ->name('playlist.temp.index');
 Route::post('/playlist/temp/add/{song}', [TempPlaylistController::class, 'tempAdd'])
     ->name('playlist.temp.add');
+Route::delete('/playlist/temp/remove/{song}', [TempPlaylistController::class, 'tempRemove'])
+    ->name('playlist.temp.remove');
 
-Route::post('/playlist/temp/save', [PlaylistController::class, 'store'])->name('playlist.temp.save');
+Route::post('/playlist/temp/save', [TempPlaylistController::class, 'saveOrLogin'])
+    ->name('playlist.temp.save');
 
-Route::delete('/playlist/temp/remove/{song}', [TempPlaylistController::class, 'tempRemove'])->name('playlist.temp.remove');
-
+Route::get('/playlist/temp/finalize', [TempPlaylistController::class, 'finalizeSave'])
+    ->middleware('auth')
+    ->name('playlist.temp.finalize');
 
 //playlsit routes
 

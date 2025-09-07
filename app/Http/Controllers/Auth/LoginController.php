@@ -35,7 +35,7 @@ class LoginController extends Controller
         $request->session()->regenerate();
         
 
-        return redirect()->route('profile')->with('success', 'welkom terug ' . $user->name);
+        return redirect()->intended(route('profile'))->with('success', 'welkom terug ' . $user->name);
     }
 
 

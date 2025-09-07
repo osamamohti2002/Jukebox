@@ -33,6 +33,6 @@ class RegisterController extends Controller
 
         Auth::login($newUser); // correct als helper
 
-        return redirect()->route('profile')->with('success', 'Welkom ' . $newUser->name . '!');
+        return redirect()->intended(route('profile'))->with('success', 'Welkom ' . $newUser->name . '!');
     }
 }
