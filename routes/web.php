@@ -60,7 +60,9 @@ Route::get('/playlist/temp/finalize', [TempPlaylistController::class, 'finalizeS
 //playlsit routes
 
 Route::middleware('auth')->group(function(){
-    Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
-    Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
+    Route::get('/playlists/create', [PlaylistController::class, 'create'])
+        ->name('playlists.create');
+    Route::post('/playlists', [PlaylistController::class, 'store'])
+        ->name('playlists.store');
     
 });

@@ -24,10 +24,11 @@
           <div>
             <p class="text-[#04fffb] font-semibold">Omschrijving:</p>
             <p class="text-white/90">{{ $song->description }}</p>
-          <form action="" method="post">
+          {{-- <form action="" method="post">
+            @csrf
           <button class="mt-4 text-[#04fffb] text-2xl font-bold hover:scale-110 transition self-end">+</button>
           </form>
-          </div>
+          </div> --}}
         </div>
 
       </div>

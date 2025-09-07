@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use App\Models\Playlist;
 use App\Models\Song;
 use Illuminate\Http\Request;
@@ -21,13 +22,25 @@ class PlaylistController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $tempIds = Session::get('playlist.items', []);
-        $tempSongs = Song::whereIn('id', $tempIds)->orderBy('song')->get();
-        $tempCount = $tempSongs->count();
-        return view('playlist.createPlaylist', compact('tempSongs', 'tempCount'));
+        $genres = Genre::query()
+            ->select('genre')
+            ->distinct()
+            ->orderBy('genre')
+            ->get();
+
+        $selectedGenre = $request->query('genre');
+
+        $songs = Song::query()
+            ->when($selectedGenre, fn($query) => $query->where('genre', $selectedGenre))
+            ->orderBy('song')
+            ->get();
+
+        return view('playlist.createPlaylist', compact('genres', 'selectedGenre', 'songs'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,29 +48,21 @@ class PlaylistController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required',
-            'string',
-            'max:100']
+            'name' => ['required', 'string', 'max:100'],
+            'songs' => ['array'],
+            'songs.*' => ['integer']
         ]);
-
-        $ids = Session::get('playlist.items', []);
-
-        if(empty($ids)){
-            return back()->with('error', 'je tijdelijke playlist is leeg');
-        }
-
+        
         $playlist = Playlist::create([
             'user_id' => Auth::id(),
             'name' => $data['name']
         ]);
 
-        $playlist->songs()->sync($ids);
+        $playlist->songs()->sync($data['songs'] ?? []);
 
-        return redirect()->route('user.profile')
+        return redirect()->route('playlists.create')
         ->with('success', 'Playlist opgeslagen als "' . e($playlist->name) . '". ');
     } 
-    // hier ben ik gestopt
-
     /**
      * Display the specified resource.
      */
