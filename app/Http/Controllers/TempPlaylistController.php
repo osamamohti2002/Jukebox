@@ -92,13 +92,7 @@ class TempPlaylistController extends Controller
 
     
     public function finalizeSave()
-    {
-        Log::info('FINALIZE start', [
-        'user' => Auth::id(),
-        'items' => session('playlist.items'),
-        'pending_name' => session('playlist.pending_name'),
-    ]);
-    
+    {    
         $this->clearIfExpired();
 
         $ids = Session::get('playlist.items', []);
