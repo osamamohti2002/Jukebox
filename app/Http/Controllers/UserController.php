@@ -14,5 +14,4 @@ class UserController extends Controller
     public function profile(){
         return view('user.profile'); // of een ander pad naar jouw profiel-view
     }
-
 }
