@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Playlist;
 use App\Models\Song;
+use App\Services\PlaylistDraftService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -12,63 +13,27 @@ use Illuminate\Support\Facades\Session;
 
 class TempPlaylistController extends Controller
 {
-    // time-out (in minuten)
-    private int $expiryMinutes = 20;
+    public function __construct(private PlaylistDraftService $draft ){}
 
     public function tempIndex(Request $request)
     {
-        $this->clearIfExpired();
 
-        $ids   = Session::get('playlist.items', []);
-        $songs = Song::whereIn('id', $ids)->orderBy('song')->get();
-
-        $totalSeconds = $songs->sum('duration');
+        $songs = $this->draft->songs(PlaylistDraftService::TEMP);
+        $totalSeconds = $this->draft->totalSeconds(PlaylistDraftService::TEMP);
 
         return view('playlist.temporaryPlaylist', compact('songs', 'totalSeconds'));
     }
 
-    public function tempAdd(Request $request, Song $song)
+    public function tempAdd(Song $song)
     {
-        $this->clearIfExpired();
-
-        $items = Session::get('playlist.items', []);
-
-        if (!in_array($song->id, $items, true)) {
-            $items[] = $song->id;
-            Session::put('playlist.items', $items);
-        }
-
-        // ✅ juiste vervaltijd gebruiken
-        Session::put('playlist.expires_at', Carbon::now()->addMinutes($this->expiryMinutes));
-
+        $this->draft->add(PlaylistDraftService::TEMP, $song->id);
         return back()->with('success', 'Liedje toegevoegd aan je tijdelijke playlist.');
     }
 
-    public function tempRemove(Request $request, Song $song)
+    public function tempRemove(Song $song)
     {
-        $this->clearIfExpired();
-
-        $items = Session::get('playlist.items', []);
-        $items = array_values(array_filter($items, fn ($id) => (int)$id !== (int)$song->id));
-
-        // ✅ gefilterde items terugzetten (niet []!)
-        Session::put('playlist.items', $items);
-
-        // Optioneel: ververs expiry bij activiteit
-        Session::put('playlist.expires_at', Carbon::now()->addMinutes($this->expiryMinutes));
-
-        // ✅ response teruggeven
+        $this->draft->remove(PlaylistDraftService::TEMP, $song->id);
         return back()->with('success', 'Liedje verwijderd uit je tijdelijke playlist.');
-    }
-
-    private function clearIfExpired(): void
-    {
-        $expiresAt = Session::get('playlist.expires_at');
-
-        if ($expiresAt && Carbon::now()->greaterThan(Carbon::parse($expiresAt))) {
-            Session::forget('playlist.items');
-            Session::forget('playlist.expires_at');
-        }
     }
 
 
@@ -93,9 +58,7 @@ class TempPlaylistController extends Controller
     
     public function finalizeSave()
     {    
-        $this->clearIfExpired();
-
-        $ids = Session::get('playlist.items', []);
+        $ids = $this->draft->items(PlaylistDraftService::TEMP);
         $name = Session::get('playlist.pending_name');
 
         if(empty($ids)){
@@ -114,8 +77,7 @@ class TempPlaylistController extends Controller
         $playlist->songs()->sync($ids);
 
         Session::forget('playlist.pending_name');
-        Session::forget('playlist.items');
-        Session::forget('playlist.expires_at');
+        $this->draft->clear(PlaylistDraftService::TEMP);
 
         return redirect()->route('profile')
             ->with('success', 'Playlist "' . e($playlist->name) . '" is opgeslagen.');
