@@ -13,40 +13,59 @@
   </div>
 
   <ul class="space-y-3">
-    <li><a href="#" class="block hover:text-[#04fffb]">Workout Vibes</a></li>
-    <li><a href="#" class="block hover:text-[#04fffb]">Chill Avond</a></li>
-    <li><a href="#" class="block hover:text-[#04fffb]">Gaming Beats</a></li>
-    <li><a href="#" class="block hover:text-[#04fffb]">Roadtrip</a></li>
-    <li><a href="#" class="block hover:text-[#04fffb]">Focus Mode</a></li>
+    @foreach ($playlists as $pl)
+      @php
+      $active = isset($playlist) && $playlist->id === $pl->id;
+      @endphp      
+    <li>
+      <a
+        href="{{ route('profile', ['playlist' => $pl->id]) }}"
+        class="block px-3 py-2 rounded-lg {{ $active ? 'bg-[#111111] text-[#04fffb]' : 'hover:text-[#04fffb]' }}">
+        {{ $pl->name }}
+      </a>
+
+    </li>
+    @endforeach
+
   </ul>
 </aside>
 
 
   <!-- Main content -->
   <main class="flex-1 p-8">
-    <h2 class="text-2xl font-bold mb-4">Playlist: Workout Vibes</h2>
-    <div class="space-y-4">
-  <!-- Liedje 1 -->
-  <div class="p-4 bg-[#111111] rounded-lg border border-[#04fffb] flex justify-between items-center">
-    <div>
-      <h3 class="text-lg font-semibold">Eye of the Tiger</h3>
-      <p class="text-sm">3:50 - Genre: Rock</p>
-    </div>
-    <button class="text-red-500 hover:text-red-400 font-bold text-lg">×</button>
-  </div>
+    @if ($playlist)
+      <h2 class="text-2xl font-bold mb-4">Playlist: {{ $playlist->name }}</h2>
+    @endif
+    @if ($playlist->songs->isEmpty())
+      <p class="text-gray-400">Nog geen nummers in deze playlist.</p>
+    @else
+    @foreach ($playlist->songs as $song)
+    @php
+        $minutes = floor($song->duration / 60);
+        $seconds = str_pad($song->duration % 60, 2, '0', STR_PAD_LEFT);
+    @endphp
 
-  <!-- Liedje 2 -->
-  <div class="p-4 bg-[#111111] rounded-lg border border-[#04fffb] flex justify-between items-center">
-    <div>
-      <h3 class="text-lg font-semibold">Stronger</h3>
-      <p class="text-sm">4:10 - Genre: Pop</p>
-    </div>
-    <button class="text-red-500 hover:text-red-400 font-bold text-lg">×</button>
-  </div>
+      <div class="space-y-4">
+        <div class="p-4 bg-[#111111] rounded-lg border border-[#04fffb] flex justify-between items-center">
+          <div>
+            <h3 class="text-lg font-semibold">{{ $song->song}}</h3>
+            <h6 class="text-lg ">Artist: {{ $song->artiest }}</h6>
+            <p class="text-sm">Duur: {{ $minutes }}:{{$seconds}} - Genre: {{ $song->genre }}</p>
+          </div>
+          <form action="">
+            <button class="text-red-500 hover:text-red-400 font-bold text-lg">×</button>
+          </form>
+        </div>
+      </div>
+    @endforeach
+    @endif
+
+
+
 </div>
 
 </main>
-</div>
+
 
 
 

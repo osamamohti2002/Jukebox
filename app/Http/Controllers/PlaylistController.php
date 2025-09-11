@@ -5,23 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Genre;
 use App\Models\Playlist;
 use App\Models\Song;
+use App\Services\PlaylistDraftService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class PlaylistController extends Controller
 {
+
+    public function __construct(private PlaylistDraftService $draft) {}
     /**
-     * Display a listing of the resource.
+        * Display a listing of the resource.
      */
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         $genres = Genre::query()
@@ -37,28 +38,41 @@ class PlaylistController extends Controller
             ->orderBy('song')
             ->get();
 
-        return view('playlist.createPlaylist', compact('genres', 'selectedGenre', 'songs'));
+        $selectedSongs = $this->draft->songs(PlaylistDraftService::CREATE);
+        return view('playlist.createPlaylist', compact('genres', 'selectedGenre', 'songs', 'selectedSongs'));
+    }
+
+    public function createAdd(Song $song)
+    {
+        $this->draft->add(PlaylistDraftService::CREATE, $song->id);
+        return back()->with('success', 'Liedje toegevoegd aan selectie.');
+    }
+
+
+    public function createRemove(Song $song)
+    {
+        $this->draft->remove(PlaylistDraftService::CREATE, $song->id);
+        return back()->with('success', 'Liedje verwijderd uit selectie.');
     }
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'songs' => ['array'],
-            'songs.*' => ['integer']
         ]);
+
+        $ids = $this->draft->items(PlaylistDraftService::CREATE);
         
         $playlist = Playlist::create([
             'user_id' => Auth::id(),
             'name' => $data['name']
         ]);
 
-        $playlist->songs()->sync($data['songs'] ?? []);
+        $playlist->songs()->sync($ids);
+
+        $this->draft->clear(PlaylistDraftService::CREATE);
 
         return redirect()->route('playlists.create')
         ->with('success', 'Playlist opgeslagen als "' . e($playlist->name) . '". ');
@@ -68,7 +82,9 @@ class PlaylistController extends Controller
      */
     public function show(Playlist $playlist)
     {
-        //
+        abort_if($playlist->user_id !== Auth::id(), 403);
+        $playlist->load('songs');
+        return view('playlist.show', compact('playlist'));
     }
 
     /**
