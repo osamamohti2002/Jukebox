@@ -20,7 +20,8 @@ class PlaylistController extends Controller
 
     public function index()
     {
-        //
+        $playlists = Playlist::all();
+        return view('playlist.index', compact('playlists'));
     }
 
     public function create(Request $request)

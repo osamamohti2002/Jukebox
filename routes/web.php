@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function(){
         ->name('playlists.store');
     Route::post('/playlists/create/add/{song}', [PlaylistController::class, 'createAdd'])->name('playlists.create.add');
     Route::delete('/playlists/create/remove/{song}', [PlaylistController::class, 'createRemove'])->name('playlists.create.remove');
+    Route::get('/playlists/show', [PlaylistController::class, 'index'])->name('playlists.index');
     Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
 
 

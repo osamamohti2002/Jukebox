@@ -47,11 +47,13 @@
 
       <div class="space-y-4">
         <div class="p-4 bg-[#111111] rounded-lg border border-[#04fffb] flex justify-between items-center">
+          <a href="/songs/{{ $song->id }}">
           <div>
             <h3 class="text-lg font-semibold">{{ $song->song}}</h3>
             <h6 class="text-lg ">Artist: {{ $song->artiest }}</h6>
             <p class="text-sm">Duur: {{ $minutes }}:{{$seconds}} - Genre: {{ $song->genre }}</p>
           </div>
+          </a>
           <form action="">
             <button class="text-red-500 hover:text-red-400 font-bold text-lg">×</button>
           </form>

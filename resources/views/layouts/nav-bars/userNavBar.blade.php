@@ -10,6 +10,7 @@
   <!-- Rechterkant: profiel + logout -->
   <div class="flex items-center space-x-4">
     <a href="{{ route('profile') }}" class="hover:text-[#04fffb]">Profiel</a>
+    <a href="{{ route('playlists.index') }}" class="hover:text-[#04fffb]">Playlists</a>
     <form action="{{ route('logout') }}" method="POST">
       @csrf
       <button type="submit" class="hover:text-[#04fffb]">Log uit</button>
