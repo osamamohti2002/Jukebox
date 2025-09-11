@@ -6,7 +6,7 @@
 
 <div class="w-[70%] mx-auto mt-10">
     <div class="bg-[#111111] text-white border border-[#04fffb] rounded-lg p-6 shadow-lg">
-
+      
 <h1 class="text-xl font-semibold mb-4">Playlist: {{ $playlist->name }}</h1>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 

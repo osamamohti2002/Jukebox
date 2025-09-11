@@ -20,7 +20,11 @@ class PlaylistController extends Controller
 
     public function index()
     {
-        $playlists = Playlist::all();
+        $playlists = Auth::user()
+            ->playlists()
+            ->latest()
+            ->get();
+
         return view('playlist.index', compact('playlists'));
     }
 
@@ -75,7 +79,7 @@ class PlaylistController extends Controller
 
         $this->draft->clear(PlaylistDraftService::CREATE);
 
-        return redirect()->route('playlists.create')
+        return redirect()->route('profile')
         ->with('success', 'Playlist opgeslagen als "' . e($playlist->name) . '". ');
     } 
     /**

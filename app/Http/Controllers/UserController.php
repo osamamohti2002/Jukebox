@@ -12,18 +12,21 @@ use function PHPUnit\Framework\isReadable;
 
 class UserController extends Controller
 {
-    public function profile(Request $request){
-        $user = Auth::user();
-        $playlists = $user->playlists;
-        $selectedId = $request->query('playlist') ?? $playlists->first()?->id;
+    public function profile(Request $request)
+    {
+        $user = $request->user();
 
-        $playlist = null;
-        if($selectedId){
-            $playlist = $user->playlists
-                ->where('id', $selectedId)
-                ->firstOrFail();
-        }
-        return view('user.profile', compact('user', 'playlists', 'playlist')); // of een ander pad naar jouw profiel-view
+        // Altijd een lege Collection als fallback, met songs eager loaded
+        $playlists = $user->playlists()->with('songs')->latest()->get();
+
+        // Probeer geselecteerde playlist-id uit query te vinden, anders de eerste
+        $selectedId = $request->integer('playlist');
+        $playlist = $playlists->firstWhere('id', $selectedId) ?? $playlists->first();
+
+        return view('user.profile', [
+            'playlists' => $playlists,
+            'playlist'  => $playlist, // kan null zijn → view vangt dit af
+        ]);
     }
 
 
