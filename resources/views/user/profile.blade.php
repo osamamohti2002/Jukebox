@@ -17,6 +17,7 @@
         @php
           $active = optional($playlist)->id === $pl->id;
         @endphp
+        <div class="p-4 bg-[#111111] rounded-lg border border-[#04fffb] flex justify-between items-center">
         <li>
           <a
             href="{{ route('profile', ['playlist' => $pl->id]) }}"
@@ -24,6 +25,17 @@
             {{ $pl->name }}
           </a>
         </li>
+        <form action="{{ route('playlists.destroy', $pl) }}"
+              method="POST"
+              onsubmit="return confirm('Weet je zeker dat je deze playlist wilt verwijderen?');">
+          @csrf
+          @method('DELETE')
+          <button type="submit"
+                  class="text-red-500 hover:text-red-400 font-bold text-lg"
+                  aria-label="Verwijderen"
+                  title="Verwijderen">×</button>
+        </form>
+        </div>
       @empty
         <li class="text-gray-400 text-sm">Je hebt nog geen playlists.</li>
       @endforelse

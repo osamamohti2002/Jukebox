@@ -113,6 +113,9 @@ class PlaylistController extends Controller
      */
     public function destroy(Playlist $playlist)
     {
-        //
+        abort_unless($playlist->user_id === Auth::id(), 403);
+        $playlist->songs()->detach();
+        $playlist->delete();
+        return back()->with('success', 'Playlist is verwijderd');
     }
 }
